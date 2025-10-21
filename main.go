@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 func main() {
 	// ticket booking app in Golang
@@ -20,8 +23,8 @@ func main() {
 	*/
 
 	var conference = "Conference"
-	const tickets int = 50
-	var availableTickets = 50
+	const tickets uint = 50
+	var availableTickets uint = 50
 	fmt.Printf("Welcome to cromeon %v ticket booking \n", conference)
 	fmt.Printf("We have total of %v and tickets remained are %v \n", tickets, availableTickets)
 	fmt.Println("Get your tickets here to attend")
@@ -29,7 +32,7 @@ func main() {
 	var firstName string
 	var lastName string
 	var email string
-	var userTickets int
+	var userTickets uint
 
 	fmt.Println("Enter your first name: ")
 	// this scan function takes the inputed value and assigns it to a variable pointed to which is firstName
@@ -44,6 +47,9 @@ func main() {
 	fmt.Println("How many tickets do you want?")
 	fmt.Scan(&userTickets)
 
+	availableTickets = tickets - userTickets
+
 	fmt.Printf("Thank you %v %v for booking %v tickets.\n We will confirm and inform you at %v \n\n", firstName, lastName, userTickets, email)
+	fmt.Printf("%v AVAILABLE FOR THE %v", availableTickets, strings.ToUpper(conference))
 
 }
