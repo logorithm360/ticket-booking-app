@@ -53,12 +53,21 @@ func main() {
 		availableTickets = availableTickets - userTickets
 		bookings = append(bookings, firstName+" "+lastName)
 
+		// logic for calling user's first name
+		var firstNames []string
+		// for each loop in golang
+		for _, booking := range bookings {
+			names := strings.Fields(booking)
+			name := names[0]
+			firstNames = append(firstNames, name)
+			fmt.Printf("NAMES THAT BOOKED TICKETS ARE:\n %v \n\n", strings.Join(firstNames, " "))
+		}
+
 		fmt.Printf("Thank you %v %v for booking %v tickets.\n We will confirm and inform you at %v \n\n", firstName, lastName, userTickets, email)
 		fmt.Printf("%v AVAILABLE FOR THE %v \n", availableTickets, strings.ToUpper(conference))
 
 		// retrieving values from a slice is the same as in arrays
 		// fmt.Printf("%v booked the ticket \n\n", bookings[0])
-		fmt.Printf("NAMES THAT BOOKED TICKETS ARE:\n %v \n\n", strings.Join(bookings, " "))
 	}
 
 }
