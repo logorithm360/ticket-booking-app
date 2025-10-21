@@ -24,6 +24,8 @@ func main() {
 
 	var conference = "Conference"
 	var availableTickets uint = 50
+	var bookings []string   // Move outside the loop to accumulate all bookings
+	var firstNames []string // Move outside the loop to accumulate all first names
 	fmt.Printf("Welcome to cromeon %v ticket booking \n", conference)
 	fmt.Printf("We have total of %v and tickets remained are %v \n", availableTickets, availableTickets)
 	fmt.Println("Get your tickets here to attend")
@@ -35,7 +37,6 @@ func main() {
 		var lastName string
 		var email string
 		var userTickets uint
-		var bookings []string
 
 		fmt.Println("Enter your first name: ")
 		// this scan function takes the inputed value and assigns it to a variable pointed to which is firstName
@@ -50,17 +51,22 @@ func main() {
 		fmt.Println("How many tickets do you want?")
 		fmt.Scan(&userTickets)
 
+		// managing the number of tickets a user needs buy
+		if userTickets > availableTickets {
+			fmt.Printf("Sorry we only have %v tickets\n", availableTickets)
+			continue
+		}
+
 		availableTickets = availableTickets - userTickets
 		bookings = append(bookings, firstName+" "+lastName)
 
 		// logic for calling user's first name
-		var firstNames []string
+		firstNames = nil // Reset the slice each time to avoid duplicates
 		// for each loop in golang
 		for _, booking := range bookings {
 			names := strings.Fields(booking)
 			name := names[0]
 			firstNames = append(firstNames, name)
-			fmt.Printf("NAMES THAT BOOKED TICKETS ARE:\n %v \n\n", strings.Join(firstNames, " "))
 		}
 
 		fmt.Printf("Thank you %v %v for booking %v tickets.\n We will confirm and inform you at %v \n\n", firstName, lastName, userTickets, email)
@@ -68,6 +74,13 @@ func main() {
 
 		// retrieving values from a slice is the same as in arrays
 		// fmt.Printf("%v booked the ticket \n\n", bookings[0])
+		fmt.Printf("NAMES THAT BOOKED TICKETS ARE:\n %v \n\n", strings.Join(firstNames, " \n"))
+
+		if availableTickets == 0 {
+			fmt.Println("All 50 tickets have been taken! The conference is now full.")
+			break
+		}
+
 	}
 
 }
