@@ -28,33 +28,37 @@ func main() {
 	fmt.Printf("We have total of %v and tickets remained are %v \n", availableTickets, availableTickets)
 	fmt.Println("Get your tickets here to attend")
 
-	var firstName string
-	var lastName string
-	var email string
-	var userTickets uint
-	var bookings []string
+	// the power of infinite loop
+	for {
+		// The only error here is: the loop continues to ask endless times while tickets are only 50
+		var firstName string
+		var lastName string
+		var email string
+		var userTickets uint
+		var bookings []string
 
-	fmt.Println("Enter your first name: ")
-	// this scan function takes the inputed value and assigns it to a variable pointed to which is firstName
-	fmt.Scan(&firstName)
+		fmt.Println("Enter your first name: ")
+		// this scan function takes the inputed value and assigns it to a variable pointed to which is firstName
+		fmt.Scan(&firstName)
 
-	fmt.Println("Enter your last name: ")
-	fmt.Scan(&lastName)
+		fmt.Println("Enter your last name: ")
+		fmt.Scan(&lastName)
 
-	fmt.Println("Enter your email name: ")
-	fmt.Scan(&email)
+		fmt.Println("Enter your email name: ")
+		fmt.Scan(&email)
 
-	fmt.Println("How many tickets do you want?")
-	fmt.Scan(&userTickets)
+		fmt.Println("How many tickets do you want?")
+		fmt.Scan(&userTickets)
 
-	availableTickets = availableTickets - userTickets
-	bookings = append(bookings, firstName+" "+lastName)
+		availableTickets = availableTickets - userTickets
+		bookings = append(bookings, firstName+" "+lastName)
 
-	fmt.Printf("Thank you %v %v for booking %v tickets.\n We will confirm and inform you at %v \n\n", firstName, lastName, userTickets, email)
-	fmt.Printf("%v AVAILABLE FOR THE %v \n", availableTickets, strings.ToUpper(conference))
+		fmt.Printf("Thank you %v %v for booking %v tickets.\n We will confirm and inform you at %v \n\n", firstName, lastName, userTickets, email)
+		fmt.Printf("%v AVAILABLE FOR THE %v \n", availableTickets, strings.ToUpper(conference))
 
-	// retrieving values from a slice is the same as in arrays
-	// fmt.Printf("%v booked the ticket \n\n", bookings[0])
-	fmt.Printf("NAMES THAT BOOKED TICKETS ARE:\n %v \n", strings.Join(bookings, " "))
+		// retrieving values from a slice is the same as in arrays
+		// fmt.Printf("%v booked the ticket \n\n", bookings[0])
+		fmt.Printf("NAMES THAT BOOKED TICKETS ARE:\n %v \n\n", strings.Join(bookings, " "))
+	}
 
 }
