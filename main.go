@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"strings"
+	"time"
 )
 
 func main() {
@@ -51,34 +52,57 @@ func main() {
 		fmt.Println("How many tickets do you want?")
 		fmt.Scan(&userTickets)
 
+		isValidName := len(firstName) >= 2 && len(lastName) >= 2
+		isValidEmail := strings.Contains(email, "@")
+		isValidTicket := userTickets > 0 && userTickets < availableTickets
+
 		// managing the number of tickets a user needs buy
 		if userTickets > availableTickets {
 			fmt.Printf("Sorry we only have %v tickets\n", availableTickets)
 			continue
 		}
 
-		availableTickets = availableTickets - userTickets
-		bookings = append(bookings, firstName+" "+lastName)
+		if isValidName && isValidEmail && isValidTicket {
 
-		// logic for calling user's first name
-		firstNames = nil // Reset the slice each time to avoid duplicates
-		// for each loop in golang
-		for _, booking := range bookings {
-			names := strings.Fields(booking)
-			name := names[0]
-			firstNames = append(firstNames, name)
-		}
+			availableTickets = availableTickets - userTickets
+			bookings = append(bookings, firstName+" "+lastName)
 
-		fmt.Printf("Thank you %v %v for booking %v tickets.\n We will confirm and inform you at %v \n\n", firstName, lastName, userTickets, email)
-		fmt.Printf("%v AVAILABLE FOR THE %v \n", availableTickets, strings.ToUpper(conference))
+			// logic for calling user's first name
+			firstNames = nil // Reset the slice each time to avoid duplicates
+			// for each loop in golang
+			for _, booking := range bookings {
+				names := strings.Fields(booking)
+				name := names[0]
+				firstNames = append(firstNames, name)
+			}
 
-		// retrieving values from a slice is the same as in arrays
-		// fmt.Printf("%v booked the ticket \n\n", bookings[0])
-		fmt.Printf("NAMES THAT BOOKED TICKETS ARE:\n %v \n\n", strings.Join(firstNames, " \n"))
+			fmt.Printf("Thank you %v %v for booking %v tickets.\n We will confirm and inform you at %v \n\n", firstName, lastName, userTickets, email)
+			fmt.Printf("%v AVAILABLE FOR THE %v \n", availableTickets, strings.ToUpper(conference))
 
-		if availableTickets == 0 {
-			fmt.Println("All 50 tickets have been taken! The conference is now full.")
-			break
+			// retrieving values from a slice is the same as in arrays
+			// fmt.Printf("%v booked the ticket \n\n", bookings[0])
+			fmt.Printf("NAMES THAT BOOKED TICKETS ARE:\n %v \n\n", strings.Join(firstNames, " \n"))
+
+			if availableTickets == 0 {
+				fmt.Printf("Thank you %v %v for booking %v tickets.\n We will confirm and inform you at %v \n\n", firstName, lastName, userTickets, email)
+				time.Sleep(5 * time.Second)
+
+				fmt.Printf("Thank you for your request.\n WE ARE OUT OF TICKETS TILL TOMORROW!\n")
+				break
+
+			}
+		} else {
+			if !isValidName {
+				fmt.Println("name is too short, please enter a long name")
+			}
+			if !isValidEmail {
+				fmt.Println("email doesn't contain @, please enter a valid name")
+
+			}
+			if !isValidTicket {
+				fmt.Println("Please enter a valid number of tickets following the remaining tickets")
+
+			}
 		}
 
 	}
